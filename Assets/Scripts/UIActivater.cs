@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 namespace HandinAvatAR
 {
     public class UIActivater : MonoBehaviour
     {
         [SerializeField] CanvasGroup canvas;
+        [SerializeField] InputProvider input;
+
         [SerializeField] float doubleTouchTime = 0.5f;
 
         [SerializeField] float uiWaitTime = 3;
@@ -20,21 +23,22 @@ namespace HandinAvatAR
         private void Start()
         {
             canvas.gameObject.SetActive(false);
+            input.OnDoubleTapped.Subscribe(_ => CanvasActivate()).AddTo(this.gameObject);
         }
 
         private void Update()
         {
-            if((Input.touchCount == 0 && prevTouchCount > 0)|| Input.GetMouseButtonUp(0))
-            {
+            //if((Input.touchCount == 0 && prevTouchCount > 0)|| Input.GetMouseButtonUp(0))
+            //{
 
-                if(Time.time - lastTouch < doubleTouchTime)
-                {
-                    CanvasActivate();
-                }
+            //    if(Time.time - lastTouch < doubleTouchTime)
+            //    {
+            //        CanvasActivate();
+            //    }
 
-                lastTouch = Time.time;
-            }
-            prevTouchCount = Input.touchCount;
+            //    lastTouch = Time.time;
+            //}
+            //prevTouchCount = Input.touchCount;
         }
 
         private void CanvasActivate()
