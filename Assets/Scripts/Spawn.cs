@@ -70,11 +70,15 @@ namespace HandinAvatAR
         // Update is called once per frame
         void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                OnButtonTouch();
+            }
         }
 
         public void OnButtonTouch()
         {
-            Destroy(spawndAvatar.gameObject);
+            Destroy(spawndAvatar);
         }
     }
 }
