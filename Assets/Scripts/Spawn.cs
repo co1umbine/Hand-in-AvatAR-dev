@@ -43,10 +43,10 @@ namespace HandinAvatAR
 
                     if (spawndAvatar)
                     {
-                        var dir = (cameraManager.transform.position - hitPose.position);
-                        dir.y = 0;
-                        spawndAvatar.transform.position = hitPose.position;
-                        spawndAvatar.transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
+                        //var dir = (cameraManager.transform.position - hitPose.position);
+                        //dir.y = 0;
+                        //spawndAvatar.transform.position = hitPose.position;
+                        //spawndAvatar.transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
                     }
                     else
                     {
