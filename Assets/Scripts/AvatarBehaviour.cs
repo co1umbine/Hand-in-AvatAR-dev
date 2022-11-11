@@ -70,7 +70,7 @@ namespace HandinAvatAR
             locomotion.Neutral();
             if (distance > maxRadius * relaxAreaRate)
             {
-                locomotion.GetCloseTo(spotPredictor.Predict);
+                locomotion.GetCloseTo(new Vector3(spotPredictor.Predict.x, transform.position.y, spotPredictor.Predict.z));
             }
             locomotion.Turn(facingAngle);
             

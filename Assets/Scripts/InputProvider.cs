@@ -5,6 +5,9 @@ using System.Linq;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 namespace HandinAvatAR
 {
@@ -40,14 +43,15 @@ namespace HandinAvatAR
         // Start is called before the first frame update
         void Start()
         {
+            EnhancedTouchSupport.Enable();
         }
 
         // Update is called once per frame
         void Update()
         {
-            observableTouchCount.Value = Input.touchCount;
+            observableTouchCount.Value = Touch.activeFingers.Count;
 
-            if (Input.GetMouseButton(0))
+            if (Mouse.current.leftButton.isPressed)
             {
                 observableTouchCount.Value += 1;
             }

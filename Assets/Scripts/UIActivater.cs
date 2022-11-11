@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using UnityEngine.InputSystem.EnhancedTouch;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 namespace HandinAvatAR
 {
     public class UIActivater : MonoBehaviour
     {
         [SerializeField] CanvasGroup canvas;
-        [SerializeField] InputProvider input;
+        //[SerializeField] InputProvider input;
 
         [SerializeField] float doubleTouchTime = 0.5f;
 
@@ -18,27 +20,26 @@ namespace HandinAvatAR
         float lastTouch;
         Coroutine fadeOutLoop;
 
-        int prevTouchCount = 0;
-
         private void Start()
         {
             canvas.gameObject.SetActive(false);
-            input.OnDoubleTapped.Subscribe(_ => CanvasActivate()).AddTo(this.gameObject);
         }
 
         private void Update()
         {
-            //if((Input.touchCount == 0 && prevTouchCount > 0)|| Input.GetMouseButtonUp(0))
-            //{
+            if (Touch.activeTouches.Count > 0)
+            {
 
-            //    if(Time.time - lastTouch < doubleTouchTime)
-            //    {
-            //        CanvasActivate();
-            //    }
+                foreach (var t in Touch.activeTouches)
+                {
+                    if (t.tapCount == 2)
+                    {
+                        CanvasActivate();
+                        return;
+                    }
+                }
 
-            //    lastTouch = Time.time;
-            //}
-            //prevTouchCount = Input.touchCount;
+            }
         }
 
         private void CanvasActivate()

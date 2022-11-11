@@ -6,6 +6,8 @@ using UnityEngine.XR.ARSubsystems;
 using UniRx;
 using VRM;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.InputSystem.EnhancedTouch;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 namespace HandinAvatAR
 {
@@ -14,7 +16,7 @@ namespace HandinAvatAR
     {
         [SerializeField] GameObject prefab;
         [SerializeField] ARCameraManager cameraManager;
-        [SerializeField] InputProvider input;
+        //[SerializeField] InputProvider input;
 
         private GameObject spawndAvatar;
         private ARRaycastManager raycastManager;
@@ -28,51 +30,59 @@ namespace HandinAvatAR
 
         private void Start()
         {
-            input.OnSingleTouch.Subscribe(_ => OnTap()).AddTo(this.gameObject);
+            EnhancedTouchSupport.Enable();
+
+            //input.OnSingleTouch.Subscribe(_ => OnTap()).AddTo(this.gameObject);
         }
 
-        void OnTap()
+        private void Update()
         {
-            if (Input.touchCount > 0)
+            if (Touch.activeTouches.Count > 0)
             {
 
-                Vector2 touchPosition = Input.GetTouch(0).position;
-                if (raycastManager.Raycast(touchPosition, hits, TrackableType.Planes))
+                Vector2 touchPosition = new Vector2();
+                foreach (var t in Touch.activeTouches)
                 {
-                    var hitPose = hits[0].pose;
-
-                    if (spawndAvatar)
+                    if (t.isTap)
                     {
-                        //var dir = (cameraManager.transform.position - hitPose.position);
-                        //dir.y = 0;
-                        //spawndAvatar.transform.position = hitPose.position;
-                        //spawndAvatar.transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
-                    }
-                    else
-                    {
-                        var dir = (cameraManager.transform.position - hitPose.position);
-                        dir.y = 0;
-
-                        spawndAvatar = Instantiate(prefab, hitPose.position, Quaternion.LookRotation(dir, Vector3.up));
-
-                        //foreach (Transform lookat in spawndAvatar.GetComponent<RigBuilder>().layers[2].rig.transform)
-                        //{
-                        //    var constraintData = lookat.GetComponent<MultiAimConstraint>().data.sourceObjects;
-                        //    constraintData.SetTransform(0, cameraManager.transform);
-                        //    lookat.GetComponent<MultiAimConstraint>().data.sourceObjects = constraintData;
-                        //}
-                        //spawndAvatar.GetComponent<RigBuilder>().Build();
+                        OnTap(touchPosition);
+                        return;
                     }
                 }
+
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        public void DebugSpawn()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            spawndAvatar = Instantiate(prefab, new Vector3(1, -1, 0), Quaternion.identity);
+        }
+
+        void OnTap(Vector2 touchPosition)
+        {
+
+            if (raycastManager.Raycast(touchPosition, hits, TrackableType.Planes))
             {
-                OnButtonTouch();
+                var hitPose = hits[0].pose;
+
+                if (spawndAvatar)
+                {
+                }
+                else
+                {
+                    var dir = (cameraManager.transform.position - hitPose.position);
+                    dir.y = 0;
+
+                    spawndAvatar = Instantiate(prefab, hitPose.position, Quaternion.LookRotation(dir, Vector3.up));
+
+                    //foreach (Transform lookat in spawndAvatar.GetComponent<RigBuilder>().layers[2].rig.transform)
+                    //{
+                    //    var constraintData = lookat.GetComponent<MultiAimConstraint>().data.sourceObjects;
+                    //    constraintData.SetTransform(0, cameraManager.transform);
+                    //    lookat.GetComponent<MultiAimConstraint>().data.sourceObjects = constraintData;
+                    //}
+                    spawndAvatar.GetComponent<RigBuilder>().Build();
+                }
             }
         }
 
