@@ -55,6 +55,8 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
+!Hand in AvatAR-0.6.apk
+
 # Crashlytics generated file
 crashlytics-build.properties
 
