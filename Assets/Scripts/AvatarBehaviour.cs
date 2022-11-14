@@ -9,8 +9,6 @@ namespace HandinAvatAR
         [SerializeField] private float maxRadius = 0.5f;
         [SerializeField] private float armLength = 0.5f;
         [SerializeField, Range(0, 1)] private float relaxAreaRate = 0.7f;
-        //[SerializeField] private float minDist = 0.2f;
-        //[SerializeField] private float faceAngleRadius = 30;
         [SerializeField] private float handChangeAngle = 20;
         [SerializeField] private Transform spot;
 
@@ -41,7 +39,7 @@ namespace HandinAvatAR
             }
         }
 
-        // Start is called before the first frame update
+
         void Start()
         {
             locomotion = GetComponent<AvatarLocomotion>();
@@ -49,7 +47,7 @@ namespace HandinAvatAR
             spotPredictor = new PositionPredictor(spot);
         }
 
-        // Update is called once per frame
+
         void Update()
         {
             var spotPredict = spotPredictor.Update();

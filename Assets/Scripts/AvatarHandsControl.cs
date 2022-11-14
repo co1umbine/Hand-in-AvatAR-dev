@@ -27,7 +27,7 @@ namespace HandinAvatAR
         private Coroutine rightHandLoop;
         private Coroutine leftHandLoop;
 
-        // Start is called before the first frame update
+
         void Start()
         {
             rightIK.weight = 0;
@@ -99,7 +99,7 @@ namespace HandinAvatAR
             IK.weight = 0;
         }
 
-        // Update is called once per frame
+
         void Update()
         {
             var camera = Camera.main.transform;

@@ -10,7 +10,6 @@ namespace HandinAvatAR
     public class UIActivater : MonoBehaviour
     {
         [SerializeField] CanvasGroup canvas;
-        //[SerializeField] InputProvider input;
 
         [SerializeField] float doubleTouchTime = 0.5f;
 

@@ -16,13 +16,12 @@ namespace HandinAvatAR
     {
         [SerializeField] GameObject prefab;
         [SerializeField] ARCameraManager cameraManager;
-        //[SerializeField] InputProvider input;
 
         private GameObject spawndAvatar;
         private ARRaycastManager raycastManager;
         private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
-        // Start is called before the first frame update
+
         void Awake()
         {
             raycastManager = GetComponent<ARRaycastManager>();
@@ -31,8 +30,6 @@ namespace HandinAvatAR
         private void Start()
         {
             EnhancedTouchSupport.Enable();
-
-            //input.OnSingleTouch.Subscribe(_ => OnTap()).AddTo(this.gameObject);
         }
 
         private void Update()
@@ -75,12 +72,6 @@ namespace HandinAvatAR
 
                     spawndAvatar = Instantiate(prefab, hitPose.position, Quaternion.LookRotation(dir, Vector3.up));
 
-                    //foreach (Transform lookat in spawndAvatar.GetComponent<RigBuilder>().layers[2].rig.transform)
-                    //{
-                    //    var constraintData = lookat.GetComponent<MultiAimConstraint>().data.sourceObjects;
-                    //    constraintData.SetTransform(0, cameraManager.transform);
-                    //    lookat.GetComponent<MultiAimConstraint>().data.sourceObjects = constraintData;
-                    //}
                     spawndAvatar.GetComponent<RigBuilder>().Build();
                 }
             }

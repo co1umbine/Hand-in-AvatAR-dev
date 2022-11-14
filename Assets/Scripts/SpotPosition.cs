@@ -32,7 +32,7 @@ public class SpotPosition : MonoBehaviour
         _camera = Camera.main.transform;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         transform.position = cameraPlanePos + cameraPlaneFront * radius;
