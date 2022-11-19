@@ -1,8 +1,9 @@
 # Hand-in-AvatAR
 アバターの手を取ってエスコートすることが出来るARアプリです。
 
+https://user-images.githubusercontent.com/38975435/202843194-0b6ad9e9-3a46-4480-ae0c-90ab79b6e0bf.mp4
+
 ![Hand](https://user-images.githubusercontent.com/38975435/201692369-425713fe-3b46-4bef-9549-a8d4f041b695.gif)
-https://drive.google.com/file/d/1B1qxOkKIGLLAGGDoMgBHEtdXO8Yf8jb0/view?usp=sharing
 
 アバター（現在はオダマキちゃん↑のみ）がスマートフォンを持つあなたの手を取ります。
 
